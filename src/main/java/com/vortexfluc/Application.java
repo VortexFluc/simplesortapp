@@ -65,7 +65,6 @@ public class Application {
             // Получаем минимальное (общую) количество слов. Чтобы контролировать ситуацию OutOfBounds.
             var minWords = getMinWords(inputFileLines);
 
-            // Если пользователь забыл указать порядковый номер слова при сортировке по слову, то будет сортировать по первому.
             int wordNum = DEFAULT_WORD_NUM;
             if (context.getSortMethod().equals(SortMethods.BY_WORD_NUM)) {
                 try {
@@ -104,8 +103,13 @@ public class Application {
         return sortedStrings;
     }
 
+    /*
+    * Function publish the result file
+    * */
     private static void writeResultFile(ApplicationContext context, List<String> sortedStrings, Map<String, Integer> stringOccurences) {
+        // Генерируем по требованиям строки вида "Исходный вид строки [<количество повторений данной строки>]"
         var resultList = sortedStrings.stream().map(el -> el + "[" + stringOccurences.get(el) + "].").collect(Collectors.toList());
+
         try {
             Files.write(Path.of(context.getOutputFilename()), resultList, StandardCharsets.UTF_8);
             System.out.println("Done!");

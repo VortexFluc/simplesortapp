@@ -4,14 +4,18 @@ import com.vortexfluc.comparators.enums.SortMethods;
 import com.vortexfluc.context.ApplicationContext;
 import org.apache.commons.cli.*;
 
+/*
+* Класс отвечает за взаимодействие с аргументами командной строки.
+* */
 public class AppCommandLine {
-    private static final Options options = new Options();
-    private final CommandLineParser parser = new DefaultParser();
-    private final CommandLine commandLine;
-    private static final HelpFormatter formatter = new HelpFormatter();
-    private final ApplicationContext applicationContext;
+    private static final Options options = new Options(); // Содержит флаги.
+    private final CommandLineParser parser = new DefaultParser(); // Парсер аргументов (отделяет объявление флага от значения)
+    private final CommandLine commandLine; // Сама командная строка.
+    private static final HelpFormatter formatter = new HelpFormatter(); // Данный объект поможет отформатировать help.
+    private final ApplicationContext applicationContext; // Здесь хранится "контекст" приложения (inputFile, outputFile..)
+    private static final int DEFAULT_WORD_NUM = 1;
+
     static {
-        CommandLine commandLine = null;
         Option inputFile = new Option("i", "inputFile", true, "Name (absolute or relative) of an input file.");
         inputFile.setRequired(true);
 
@@ -29,7 +33,9 @@ public class AppCommandLine {
     public AppCommandLine(String[] args) throws ParseException {
         this.commandLine = parser.parse(options, args);
         var arguments = commandLine.getArgs();
-        var wordNum = 1;
+
+        // Если пользователь забыл указать порядковый номер слова при сортировке по слову, то будет сортировать по первому.
+        var wordNum = DEFAULT_WORD_NUM;
         if (arguments.length > 0) {
             wordNum = Integer.parseInt(arguments[0]);
         }
