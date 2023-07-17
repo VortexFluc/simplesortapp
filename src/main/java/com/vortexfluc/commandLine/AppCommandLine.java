@@ -5,8 +5,8 @@ import com.vortexfluc.context.ApplicationContext;
 import org.apache.commons.cli.*;
 
 /*
-* Класс отвечает за взаимодействие с аргументами командной строки.
-* */
+ * Класс отвечает за взаимодействие с аргументами командной строки.
+ * */
 public class AppCommandLine {
     private static final Options options = new Options(); // Содержит флаги.
     private final CommandLineParser parser = new DefaultParser(); // Парсер аргументов (отделяет объявление флага от значения)
@@ -16,18 +16,25 @@ public class AppCommandLine {
     private static final int DEFAULT_WORD_NUM = 1;
 
     static {
-        Option inputFile = new Option("i", "inputFile", true, "Name (absolute or relative) of an input file.");
+        Option inputFile = new Option("i", "inputFile", true, "Название (абсолютное или относительное) файла с исходными строками.");
         inputFile.setRequired(true);
 
-        Option outputFile = new Option("o", "outputFile", true, "Desired name of output file.");
+        Option outputFile = new Option("o", "outputFile", true, "Желаемое название выходного файла.");
         inputFile.setRequired(true);
 
-        Option sortMethod = new Option("sm", "sortMethod", true, "Sort method. [1, 2 or 3]");
+        Option sortMethod = new Option("sm", "sortMethod", true, "Метод сортировки. [1, 2 или 3].\n" +
+                "1 - Лексикографический.\n" +
+                "2 - По количеству символов в строке.\n" +
+                "3 - По указанному в аргументе порядковому номеру слова (Лексикографически).\n");
         inputFile.setRequired(false);
+
+        Option help = new Option("h", "help", false, "Описание флагов приложения.");
+        help.setRequired(false);
 
         options.addOption(inputFile);
         options.addOption(outputFile);
         options.addOption(sortMethod);
+        options.addOption(help);
     }
 
     public AppCommandLine(String[] args) throws ParseException {
@@ -52,6 +59,9 @@ public class AppCommandLine {
     }
 
     public static void printHelp() {
-        formatter.printHelp("utility-name", options);
+        formatter.printHelp(
+                "java -jar SimpleSortApp-1.0-SNAPSHOT-jar-with-dependencies.jar -i <input_file_name>" +
+                        " -o <output_file_name> -sm [1|2|3] <word_number>",
+                options);
     }
 }

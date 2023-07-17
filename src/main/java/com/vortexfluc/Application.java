@@ -19,9 +19,13 @@ public class Application {
     * Входная точка приложения.
     * */
     public static void main(String[] args) {
+        if (Arrays.stream(args).anyMatch(el -> "-h".equals(el))) {
+            AppCommandLine.printHelp();
+            return;
+        }
         // Все флаги в приложении обязательны. Поэтому если какого-то не будет - сообщить пользователю об этом (и показать usage).
         if (args.length < 6) {
-            System.out.println("You must specify flags: -i, -o, -sm! All flags are mandatory!");
+            System.out.println("Необходимо указать все флаги: -i, -o, -sm! Все флаги обязательны!");
             AppCommandLine.printHelp();
             return;
         }
@@ -31,7 +35,7 @@ public class Application {
         try {
             commandLine = new AppCommandLine(args);
         } catch (ParseException e) {
-            System.out.println("Unable to parse arguments!");
+            System.out.println("Не смог прочитать аргументы!");
             AppCommandLine.printHelp();
             return;
         }
