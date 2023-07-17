@@ -1,7 +1,11 @@
 package com.vortexfluc.context;
 
-import com.vortexfluc.comparators.enums.SortMethods;
+import com.vortexfluc.strings.comparators.enums.SortMethods;
 
+/**
+ * "Контекст" приложения. В принципе здесь это используется лишь для хранения "состояния" приложения. А точнее его
+ * исходных данных, которые пользователь ввёл при запуске программы.
+ * */
 public class ApplicationContext {
     private final String inputFilename;
     private final String outputFilename;

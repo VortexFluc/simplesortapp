@@ -1,6 +1,6 @@
-package com.vortexfluc.comparators;
+package com.vortexfluc.strings.comparators;
 
-import com.vortexfluc.comparators.enums.SortMethods;
+import com.vortexfluc.strings.comparators.enums.SortMethods;
 
 import java.util.Comparator;
 

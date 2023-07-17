@@ -1,5 +1,8 @@
-package com.vortexfluc.comparators.enums;
+package com.vortexfluc.strings.comparators.enums;
 
+/**
+ * Enum видов сортировки. Повышает читаемость, понижает забывчиваость в switch-case.
+ * */
 public enum SortMethods {
     LEXICOGRAPHICALLY("1"),
     BY_LETTER_COUNT("2"),

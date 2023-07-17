@@ -1,6 +1,6 @@
 package com.vortexfluc.commandLine;
 
-import com.vortexfluc.comparators.enums.SortMethods;
+import com.vortexfluc.strings.comparators.enums.SortMethods;
 import com.vortexfluc.context.ApplicationContext;
 import org.apache.commons.cli.*;
 
